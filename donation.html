@@ -1,0 +1,170 @@
+<html>
+<head>
+  <title>Donation Form</title>
+ <!-- <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #9cb3e1;
+    }
+    .form-box {
+      background-color: #c4effd;
+      padding: 20px;
+      border-radius: 10px;
+      width: 500px;
+      margin: auto;
+    }
+    input, select {
+      width: 100%;
+      padding: 6px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+    h2, h3 {
+      color: #628289;
+    }
+  </style> -->
+
+     <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgb(89, 167, 203);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgb(84, 101, 139);
+        }
+
+        body {
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .right-alignment {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        #header1 {
+            font-size: small;
+        }
+
+        #header2 {
+            font-weight: bold;
+        }
+  
+           .form-box {
+      background-color: #c4effd;
+      padding: 20px;
+      border-radius: 10px;
+      width: 500px;
+      margin: auto;
+      }
+         h2 {
+      color: #911313;
+    }
+        h3 {
+      color: #3a6a79;
+    }
+        
+    </style>
+</head>
+<body>
+
+  <div class="form-box">
+    
+  <h4>1 Donation > 2 Confirmation > Thank You!</h4>
+  <h3>Donor Information</h3>
+
+<form>
+<style>label{display:inline-block;width:100px;}input{border-radius:8px;}</style>
+<label>First Name<span style="color:red;">*:</span></label><input type="text" name="fname"><br>
+<label>Last  Name<span style="color:red;">*:</span></label><input type="text" name="fname"><br>
+<label>Company   :</label><input type="text" name="fcompany"><br>
+<label>Address 1 <span style="color:red;">*:</span></label><input type="text" name="faddress"><br>
+<label>Address 2 :</span></label><input type="text" name="faddress"><br>
+<label>City      :<span style="color:red;">*:</span></label><input type="text" name="fcity"><br>
+</form>
+    State:
+    <select name="state">
+      <option value="">Select a State</option>
+      <option>Dhaka</option>
+      <option>Delih</option>
+      <option>New York</option>
+    </select>
+    <br><br>
+
+    Zip Code*: <input type="text" name="zip"><br><br>
+
+    Country:
+    <select name="country">
+      <option value="">Select a Country</option>
+      <option>Bangladesh</option>
+      <option>India</option>
+      <option>USA</option>
+      <option>Nepal</option>
+      <option>Pakisthan</option>
+      <option>Hongkong</option>
+    </select>
+    <br><br>
+
+    Phone: <input type="text" name="phone"><br><br>
+
+    Fax: <input type="text" name="fax"><br><br>
+    Email*: <input type="email" name="email"><br><br>
+
+    <h3>Donation Amount*</h3>
+    <input type="radio" name="amount" value="none"> None
+    <input type="radio" name="amount" value="50"> $50
+    <input type="radio" name="amount" value="75"> $75
+    <input type="radio" name="amount" value="100"> $100
+    <input type="radio" name="amount" value="250"> $250
+    <input type="radio" name="amount" value="other"> Other<br><br>
+
+    Other Amount: $<input type="text" name="otheramount"><br><br>
+
+    <input type="checkbox" name="recurring"> I am interested in giving on a regular basis.<br><br>
+
+    Monthly Credit Card $<input type="text" name="monthlyamount"> for 
+    <input type="text" name="months" size="5"> months<br><br>
+
+    <h2>Honorarium and Memorial Donation Information</h2>
+
+    <p style="color:red;">I would like to make this donation:</p>
+     <br><br>
+    <input type="radio" name="honor" value="to_honor"> To Honor
+    <input type="radio" name="honor" value="in_memory"> In Memory of<br><br>
+
+    Name: <input type="text" name="honorname"><br><br>
+    Acknowledge Donation to: <input type="text" name="acknowledge"><br><br>
+    Address: <input type="text" name="haddress"><br><br>
+    City: <input type="text" name="hcity"><br><br>
+
+    State:
+    <select name="hstate">
+      <option value="">Select a State</option>
+      <option>California</option>
+      <option>Texas</option>
+      <option>Florida</option>
+    </select><br><br>
+
+    Zip: <input type="text" name="hzip"><br><br>
+
+    <input type="submit" value="Submit">
+
+    <input type="submit" value="Submit">
+
+  </form>
+
+</body>
+</html>
