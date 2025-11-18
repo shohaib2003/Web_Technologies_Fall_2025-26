@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Review System - Electronics Store</title>
+    <style>
+        /* --- General Styling and Layout --- */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        /* --- Statistics Section --- */
+        #stats-display {
+            display: flex;
+            justify-content: space-around;
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .stat-box {
+            margin: 5px 10px;
+        }
+
+        .stat-box strong {
+            display: block;
+            font-size: 1.8em;
+            color: #28a745; /* Green for key stats */
+        }
+
+        /* --- Review Form Styling --- */
+        #review-form-section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Ensures padding doesn't affect total width */
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .error-message {
+            color: #dc3545; /* Red for errors */
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none; /* Initially hidden */
+        }
+
+        .feedback-message {
+            font-size: 0.9em;
+            margin-top: 5px;
+            color: #6c757d;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        /* --- Star Rating System --- */
+        .rating-group {
+            display: inline-block;
+        }
+
+        .star-rating {
+            display: inline-block;
+            direction: rtl;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 2em;
+            color: #ccc;
+            cursor: pointer;
+            margin: 0;
+            padding: 0 2px;
+            transition: color 0.2s;
+            display: inline-block;
+        }
+
+        .star-rating input:checked ~ label {
+            color: #ffc107; /* Gold color for selected stars */
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #ffc107;
+        }
+
+        #selected-rating {
+            margin-left: 10px;
+            font-weight: bold;
+            color: #ffc107;
+        }
+
+        /* --- Review List and Item Styling --- */
+        #reviews-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .review-item {
+            border: 1px solid #eee;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            background-color: #fcfcfc;
+            position: relative;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-meta {
+            font-size: 0.85em;
+            color: #6c757d;
+        }
+
+        .review-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+
+        .review-body {
+            margin-bottom: 15px;
+        }
+
+        .review-rating .star {
+            color: #ffc107;
+            font-size: 1.1em;
+        }
+
+        .recommendation {
+            font-style: italic;
+            color: #28a745;
+        }
+
+        .helpful-section button {
+            background: none;
+            border: 1px solid #007bff;
+            color: #007bff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .helpful-section button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .helpful-section span {
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        /* --- Sorting Dropdown --- */
+        .reviews-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .reviews-controls label {
+            margin-right: 10px;
+            font-weight: normal;
+        }
+
+        select#sort-reviews {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Product Review Section (Example Gadget)</h1>
+
+        <section id="stats-display">
+            <div class="stat-box">
+                <strong><span id="total-reviews">0</span></strong>
+                <span>Total Reviews</span>
+            </div>
+            <div class="stat-box">
+                <strong><span id="average-rating">0.0</span></strong>
+                <span>Average Rating</span>
+            </div>
+            <div class="stat-box">
+                <strong><span id="recommendation-percentage">0%</span></strong>
+                <span>Would Recommend</span>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="review-form-section">
+            <h2>Share Your Experience</h2>
+            <form id="review-form" novalidate>
+                <div class="form-group">
+                    <label for="customer-name">Customer Name *</label>
+                    <input type="text" id="customer-name" name="customer-name" required maxlength="30">
+                    <div class="error-message" id="error-customer-name">Name should be between 2 and 30 characters</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address (Optional)</label>
+                    <input type="email" id="email" name="email">
+                    <div class="error-message" id="error-email">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review-title">Review Title *</label>
+                    <input type="text" id="review-title" name="review-title" required maxlength="100">
+                    <div class="error-message" id="error-review-title">Review title should be between 5 and 100 characters</div>
+                </div>
+
+                <div class="form-group rating-group">
+                    <label>Product Rating *</label>
+                    <div class="star-rating" id="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5" required><label for="star5" title="5 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                    </div>
+                    <span id="selected-rating">No rating selected</span>
+                    <div class="error-message" id="error-rating">Please select a product rating</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="review-description">Review Description *</label>
+                    <textarea id="review-description" name="review-description" rows="5" required minlength="20" maxlength="1000"></textarea>
+                    <div class="feedback-message">Characters remaining: <span id="char-count">1000</span></div>
+                    <div class="error-message" id="error-review-description">Review description should be between 20 and 1000 characters</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Would Recommend?</label>
+                    <div>
+                        <input type="radio" id="recommend-yes" name="recommend" value="Yes" checked>
+                        <label for="recommend-yes" style="display: inline; font-weight: normal;">Yes</label>
+                        <input type="radio" id="recommend-no" name="recommend" value="No" style="margin-left: 15px;">
+                        <label for="recommend-no" style="display: inline; font-weight: normal;">No</label>
+                    </div>
+                </div>
+
+                <button type="submit">Submit Review</button>
+            </form>
+        </section>
+
+        <hr>
+
+        <h2>Customer Reviews (<span id="total-reviews-count-display">0</span>)</h2>
+        <div class="reviews-controls">
+            <label for="sort-reviews">Sort By:</label>
+            <select id="sort-reviews">
+                <option value="newest">Newest First</option>
+                <option value="highest">Highest Rated First</option>
+            </select>
+        </div>
+        <ul id="reviews-list">
+            <li id="no-reviews-message" style="text-align: center; color: #6c757d;">Be the first to leave a review!</li>
+        </ul>
+
+    </div>
+
+    <script>
+        // --- DATA STRUCTURE: Store reviews in a JS Array for the session ---
+        let reviews = [];
+        let currentSort = 'newest';
+
+        // --- DOM Elements ---
+        const reviewForm = document.getElementById('review-form');
+        const reviewsList = document.getElementById('reviews-list');
+        const charCountDisplay = document.getElementById('char-count');
+        const reviewDescription = document.getElementById('review-description');
+        const starRatingInputs = document.querySelectorAll('#star-rating input[name="rating"]');
+        const selectedRatingDisplay = document.getElementById('selected-rating');
+        const sortReviewsSelect = document.getElementById('sort-reviews');
+        const noReviewsMessage = document.getElementById('no-reviews-message');
+
+        // --- HELPER FUNCTIONS ---
+
+        /**
+         * Renders the stars for a review.
+         * @param {number} rating - The rating value (1-5).
+         * @returns {string} HTML string of star icons.
+         */
+        const renderStars = (rating) => {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += `<span class="star">${i <= rating ? '★' : '☆'}</span>`;
+            }
+            return stars;
+        };
+
+        /**
+         * Calculates and updates the review statistics display.
+         */
+        const updateStatistics = () => {
+            const totalReviews = reviews.length;
+            const totalRatingSum = reviews.reduce((sum, review) => sum + parseInt(review.rating), 0);
+            const totalRecommended = reviews.filter(review => review.recommend === 'Yes').length;
+
+            const avgRating = totalReviews > 0 ? (totalRatingSum / totalReviews).toFixed(1) : '0.0';
+            const recommendationPercentage = totalReviews > 0 ? ((totalRecommended / totalReviews) * 100).toFixed(0) : '0';
+
+            document.getElementById('total-reviews').textContent = totalReviews;
+            document.getElementById('average-rating').textContent = avgRating;
+            document.getElementById('recommendation-percentage').textContent = `${recommendationPercentage}%`;
+            document.getElementById('total-reviews-count-display').textContent = totalReviews;
+
+            noReviewsMessage.style.display = totalReviews === 0 ? 'list-item' : 'none';
+        };
+
+        /**
+         * Clears all validation error messages for a given field.
+         * @param {string} fieldId - The ID of the field's error message div.
+         */
+        const clearValidationError = (fieldId) => {
+            const errorElement = document.getElementById(`error-${fieldId}`);
+            if (errorElement) errorElement.style.display = 'none';
+        };
+
+        /**
+         * Displays a validation error message.
+         * @param {string} fieldId - The ID of the field's error message div.
+         */
+        const displayValidationError = (fieldId) => {
+            const errorElement = document.getElementById(`error-${fieldId}`);
+            if (errorElement) errorElement.style.display = 'block';
+        };
+
+        // --- VALIDATION FUNCTIONS ---
+
+        /**
+         * Validates a single input field based on defined rules.
+         * @param {HTMLInputElement|HTMLTextAreaElement} input - The input element.
+         * @param {string} type - 'required' or 'optional'.
+         * @param {number} [min=0] - Minimum length.
+         * @param {number} [max=Infinity] - Maximum length.
+         * @returns {boolean} - True if valid, false otherwise.
+         */
+        const validateInput = (input, type, min = 0, max = Infinity) => {
+            const value = input.value.trim();
+            const errorId = input.id;
+            clearValidationError(errorId);
+
+            if (type === 'required' && value.length === 0) {
+                displayValidationError(errorId);
+                return false;
+            }
+
+            if (value.length > 0 && (value.length < min || value.length > max)) {
+                displayValidationError(errorId);
+                return false;
+            }
+
+            // Specific email validation
+            if (errorId === 'email' && value.length > 0) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(value)) {
+                    displayValidationError(errorId);
+                    return false;
+                }
+            }
+
+            return true;
+        };
+
+        /**
+         * Validates the rating selection.
+         * @returns {boolean} - True if a rating is selected, false otherwise.
+         */
+        const validateRating = () => {
+            const ratingInput = document.querySelector('#star-rating input[name="rating"]:checked');
+            clearValidationError('rating');
+            if (!ratingInput) {
+                displayValidationError('rating');
+                return false;
+            }
+            return true;
+        };
+
+        // --- RENDER AND EVENT HANDLERS ---
+
+        /**
+         * Creates the HTML for a single review item.
+         * @param {object} review - The review data object.
+         * @param {number} index - The index of the review in the array (for unique ID).
+         * @returns {string} The HTML for the review item.
+         */
+        const createReviewHTML = (review, index) => {
+            const helpfulId = `helpful-count-${index}`;
+            return `
+                <li class="review-item">
+                    <div class="review-header">
+                        <div class="review-meta">
+                            <strong>${review.name}</strong> reviewed on ${review.date}
+                        </div>
+                        <div class="review-rating">${renderStars(review.rating)}</div>
+                    </div>
+                    <div class="review-title">${review.title}</div>
+                    <p class="review-body">${review.description}</p>
+                    <p class="recommendation">
+                        Recommendation: ${review.recommend === 'Yes' ? 'Would recommend this product 👍' : 'Would not recommend this product 👎'}
+                    </p>
+                    <div class="helpful-section">
+                        <button class="helpful-button" data-index="${index}">Helpful?</button>
+                        <span id="${helpfulId}">${review.helpfulCount}</span> people found this helpful
+                    </div>
+                </li>
+            `;
+        };
+
+        /**
+         * Renders the current list of reviews based on the sort order.
+         */
+        const renderReviews = () => {
+            let sortedReviews = [...reviews];
+
+            if (currentSort === 'newest') {
+                sortedReviews.sort((a, b) => b.timestamp - a.timestamp);
+            } else if (currentSort === 'highest') {
+                sortedReviews.sort((a, b) => {
+                    // Sort by rating (descending), then by timestamp (newest first)
+                    if (b.rating !== a.rating) {
+                        return b.rating - a.rating;
+                    }
+                    return b.timestamp - a.timestamp;
+                });
+            }
+
+            reviewsList.innerHTML = sortedReviews.map((review, index) => {
+                // Find the original index to link back to the `reviews` array for helpful count update
+                const originalIndex = reviews.findIndex(r => r.timestamp === review.timestamp);
+                return createReviewHTML(review, originalIndex);
+            }).join('');
+
+            // Re-attach helpful button listeners
+            document.querySelectorAll('.helpful-button').forEach(button => {
+                button.addEventListener('click', handleHelpfulClick);
+            });
+        };
+
+        /**
+         * Handles the click event for the "Helpful" button.
+         * @param {Event} event - The click event.
+         */
+        const handleHelpfulClick = (event) => {
+            const button = event.currentTarget;
+            const index = parseInt(button.getAttribute('data-index'));
+            
+            // Check if the user has already clicked (simple session-based toggle)
+            if (!button.classList.contains('clicked')) {
+                reviews[index].helpfulCount++;
+                button.classList.add('clicked');
+                button.textContent = 'Helpful (Clicked)';
+            } else {
+                reviews[index].helpfulCount--;
+                button.classList.remove('clicked');
+                button.textContent = 'Helpful?';
+            }
+
+            document.getElementById(`helpful-count-${index}`).textContent = reviews[index].helpfulCount;
+        };
+
+        /**
+         * Handles the form submission for a new review.
+         * @param {Event} event - The form submit event.
+         */
+        const handleFormSubmit = (event) => {
+            event.preventDefault();
+
+            // 1. Run all validations
+            const nameValid = validateInput(document.getElementById('customer-name'), 'required', 2, 30);
+            const emailValid = validateInput(document.getElementById('email'), 'optional');
+            const titleValid = validateInput(document.getElementById('review-title'), 'required', 5, 100);
+            const descriptionValid = validateInput(reviewDescription, 'required', 20, 1000);
+            const ratingValid = validateRating();
+
+            if (!nameValid || !emailValid || !titleValid || !descriptionValid || !ratingValid) {
+                alert('Please correct the errors in the form.');
+                return;
+            }
+
+            // 2. Gather form data
+            const formData = new FormData(reviewForm);
+            const newReview = {
+                name: formData.get('customer-name').trim(),
+                email: formData.get('email').trim(),
+                title: formData.get('review-title').trim(),
+                description: formData.get('review-description').trim(),
+                rating: parseInt(formData.get('rating')),
+                recommend: formData.get('recommend'),
+                timestamp: Date.now(),
+                date: new Date().toLocaleString(),
+                helpfulCount: 0
+            };
+
+            // 3. Add to data array and update display
+            reviews.push(newReview);
+            reviewForm.reset(); // Clear the form
+            selectedRatingDisplay.textContent = 'No rating selected';
+            charCountDisplay.textContent = '1000'; // Reset counter
+
+            // Clear all error messages on successful submission (optional, but good UX)
+            document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+
+            // 4. Update real-time elements
+            updateStatistics();
+            renderReviews();
+            alert('Review submitted successfully!');
+        };
+
+        // --- INITIALIZATION AND EVENT LISTENERS ---
+
+        /**
+         * Sets up the initial state and event listeners.
+         */
+        const initReviewSystem = () => {
+            // Initial statistics display
+            updateStatistics();
+            renderReviews();
+
+            // Event listener for form submission
+            reviewForm.addEventListener('submit', handleFormSubmit);
+
+            // Real-time character counter for description
+            reviewDescription.addEventListener('input', () => {
+                const maxLength = 1000;
+                const currentLength = reviewDescription.value.length;
+                charCountDisplay.textContent = maxLength - currentLength;
+                
+                // Real-time validation for character count
+                validateInput(reviewDescription, 'required', 20, maxLength);
+            });
+
+            // Real-time rating display
+            starRatingInputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    selectedRatingDisplay.textContent = `${input.value} Star${input.value > 1 ? 's' : ''}`;
+                    clearValidationError('rating');
+                });
+            });
+
+            // Real-time form input validation on blur (after user leaves the field)
+            document.getElementById('customer-name').addEventListener('blur', (e) => validateInput(e.target, 'required', 2, 30));
+            document.getElementById('email').addEventListener('blur', (e) => validateInput(e.target, 'optional'));
+            document.getElementById('review-title').addEventListener('blur', (e) => validateInput(e.target, 'required', 5, 100));
+
+            // Event listener for sorting change
+            sortReviewsSelect.addEventListener('change', (e) => {
+                currentSort = e.target.value;
+                renderReviews();
+            });
+        };
+
+        // Initialize the system when the script loads
+        initReviewSystem();
+    </script>
+</body>
+</html>

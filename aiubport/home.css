@@ -1,0 +1,295 @@
+/* General Reset and Base Styles */
+body {
+    font-family: Arial, sans-serif; /* Use a common font */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8; /* Light gray background like the screenshot */
+    display: flex;
+    justify-content: center;
+}
+
+.portal-container {
+    width: 100%;
+    max-width: 600px; /* Constraining width like a mobile screenshot */
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(20, 87, 210, 0.1);
+    border: 1px solid #ccc; /* Subtle border to contain the page */
+}
+
+/* Header Styling */
+.portal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #e0f7fa; /* Light blue/green background */
+    border-bottom: 2px solid #004d40; /* Darker line under the header */
+    color: #004d40;
+    font-size: 14px;
+}
+
+.logo-text {
+    display: flex;
+    align-items: center;
+}
+
+.aiub-logo {
+    height: 30px; /* Adjust size */
+    margin-right: 10px;
+    /* In a real scenario, you'd link the actual AIUB logo */
+}
+
+.portal-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #004d40;
+}
+
+.welcome-info {
+    font-size: 12px;
+}
+
+.notification-icon {
+    margin-left: 5px;
+    color: red; /* Assuming the notification icon is red */
+}
+
+/* Info Blocks (Teams and General Info) */
+.info-block {
+    margin: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.team-info {
+    background-color: #e8f5e9; /* Very light green background */
+    border: 1px solid #c8e6c9;
+}
+
+.team-info p {
+    margin: 5px 0;
+}
+
+.team-info table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.team-info td {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+}
+
+.team-info .label {
+    width: 100px;
+    font-weight: bold;
+    background-color: #f1f8e9;
+}
+
+.team-info .value {
+    background-color: #ffffff;
+    font-weight: bold;
+    color: #0a0a0a;
+}
+
+.download-button {
+    background-color: #4CAF50; /* Green button */
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* General Info Block Styling */
+.general-info {
+    background-color: #fce4ec; /* Light pink/peach background */
+    border: 1px solid #f8bbd0;
+    text-align: center;
+}
+
+.general-info a {
+    color: #e91e63; /* Pink/Red link color */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.submit-button, .vaccine-button {
+    background-color: #03a9f4; /* Blue buttons */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    flex-grow: 1;
+    margin: 0 5px;
+}
+
+/* Schedule and Registration Sections */
+.section-title {
+    background-color: #0e6faf; /* Dark green/teal background for titles */
+    color: white;
+    padding: 10px 15px;
+    margin: 0;
+    font-size: 16px;
+}
+
+.schedule-section {
+    margin: 10px 0;
+    border: 1px solid #ccc;
+}
+
+.schedule-day {
+    padding: 10px 15px;
+}
+
+.schedule-day h4 {
+    color: #010101; /* Green text for day headers */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.schedule-day.future h4 {
+    color: #000000; /* Pink/Red for future dates */
+}
+
+.class-entry {
+    border-bottom: 1px dashed #eee;
+    padding: 5px 0;
+}
+
+.class-entry:last-of-type {
+    border-bottom: none;
+}
+
+.course-name {
+    font-weight: bold;
+    color: #135bc7;
+    margin: 0;
+    font-size: 13px;
+}
+
+.time-room {
+    color: #555;
+    margin: 0;
+    font-size: 12px;
+}
+
+.holiday {
+    color: rgb(0, 0, 0); /* Dark red for holidays */
+    font-style: italic;
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+/* Registration Section Styling */
+.registration-section {
+    margin: 10px 0 60px 0; /* Add margin at the bottom for the fixed nav */
+    border: 1px solid #ccc;
+}
+
+.semester-info {
+    background-color: #f1f1f1;
+    padding: 8px 15px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+    text-align: right;
+}
+
+.course-registration {
+    padding: 10px 15px;
+}
+
+.course-registration p {
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.status-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.status-row span:first-child {
+    margin-right: 10px;
+    color: #777;
+}
+
+.status-tag {
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-right: 5px;
+    color: white;
+    font-size: 11px;
+}
+
+.status-tag.green {
+    background-color: #4CAF50;
+}
+
+.status-tag.blue {
+    background-color: #03a9f4;
+}
+
+.result-tag {
+    color: #2566b1; /* Pink/Red for Result */
+    font-weight: bold;
+    font-size: 12px;
+}
+
+/* Bottom Navigation Bar (Fixed at the bottom) */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 600px; /* Match container width */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #090909; /* Dark green/teal for navigation items */
+    font-size: 10px;
+    padding: 5px;
+}
+
+.nav-item .icon {
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+/* Hide the placeholder image for the logo if not found */
+.aiub-logo[src*="example.com"] {
+    display: none;
+}
+/* If logo is hidden, adjust the title alignment */
+.aiub-logo[src*="example.com"] + .portal-title {
+    margin-left: 0;
+}

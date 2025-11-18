@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+}
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+label span {
+    color: red;
+}
+input[type="text"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.recommend input[type="radio"] {
+    margin-right: 5px;
+}
+
+.recommend {
+    margin-top: 5px;
+}
+p {
+    color: red;
+    font-size: 14px;
+    margin: 5px 0 0 0;
+}
+button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+#statsPanel {
+    display: none;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#statsPanel h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#statsPanel p {
+    color: #555;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+#statsPanel span {
+    font-weight: bold;
+}

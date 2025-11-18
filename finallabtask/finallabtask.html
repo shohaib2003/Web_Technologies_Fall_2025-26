@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="finallabtask.css">
+
+    
+</head>
+<body>   
+    
+    <div class="hype">
+        <h1>Event Registration</h1>
+       
+    </div>
+      
+    <label>Full Name <span>*</span></label>
+    <input type="text" id="name">
+    <p id="Name_warning"></p>
+
+    <label>Professional Email <span>*</span></label>
+    <input type="email" id="email">
+    <p id="email_warning"></p>
+
+    <label>Company / Institution</label>
+    <input type="text" id="company_value">
+    <p id="company_check"></p> 
+
+    <label>Would you attend in Virtual or In-person? <span>*</span></label>
+    <div class="recommend">
+        <input type="radio" name="attendance" value="Virtual"> Virtual
+        <input type="radio" name="attendance" value="In-Person"> In-Person
+    </div>
+    <p id="attendance_warning"></p>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+    <button type="button" id="toggleBtn" onclick="toggleStats()">Show Event Analytics</button>
+
+    <div id="statsPanel">
+        <h3>Event Analytics</h3>
+        <p>Total Registrants: <span id="totalCount">0</span></p>
+        <p>Virtual: <span id="virtualCount">0</span></p>
+        <p>In-Person: <span id="inPersonCount">0</span></p>
+    </div>
+
+
+          <script>
+    let total = 0;
+    let virtual = 0;
+    let inPerson = 0;
+
+function submitForm() {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const company = document.getElementById('company_value').value.trim();
+        const attendance = document.querySelector('input[name="attendance"]:checked');
+  let valid = true;
+
+        if (name.length < 6 || name.length > 100) {
+            document.getElementById('Name_warning').innerHTML = 'Name must be between 6 and 100 characters.';
+            valid = false;
+        } else {
+            document.getElementById('Name_warning').innerHTML = '';
+        }
+
+        if ( (!email.includes("@") || !email.includes("."))) {
+            document.getElementById('email_warning').innerHTML = 'Please enter a valid professional email address.';
+            valid = false;
+        } else {
+            document.getElementById('email_warning').innerHTML = '';
+        }
+
+        if (company.length > 100) {
+            document.getElementById('company_check').innerHTML = 'Company name must be under 100 characters.';
+            valid = false;
+        } else {
+            document.getElementById('company_check').innerHTML = '';
+        }
+
+        if (!attendance) {
+            document.getElementById('attendance_warning').innerHTML = 'Please select your attendance type.';
+            valid = false;
+        } else {
+            document.getElementById('attendance_warning').innerHTML = '';
+        }
+
+        if (!valid) return;
+
+ total++;
+
+        if (attendance.value === 'Virtual') virtual++;
+        else inPerson++;
+
+        updateStats();
+
+        alert("Registration Successful!");
+    }
+
+    function updateStats() {
+        document.getElementById('totalCount').innerHTML = total;
+        document.getElementById('virtualCount').innerHTML = virtual;
+        document.getElementById('inPersonCount').innerHTML = inPerson;
+    }
+
+    function toggleStats() {
+        const panel = document.getElementById('statsPanel');
+        const btn = document.getElementById('toggleBtn');
+
+        if (panel.style.display === 'none') {
+            panel.style.display = 'block';
+            btn.innerText = 'Hide Event Analytics';
+        } else {
+            panel.style.display = 'none';
+            btn.innerText = 'Show Event Analytics';
+        }
+    }
+</script>
+
+</body>
+</html>
